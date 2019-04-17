@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-themes-web-app-capable" content="yes">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="format-detection" content="telephone=no">
+    <title>考核</title>
+    <link rel="stylesheet" href="__STATIC__/css/main.css" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?{:date('Y-m-d')}" />
+    <link rel="stylesheet" href="__STATIC__/css/answer.css?11" />
+    <link rel="stylesheet" href="__STATIC__/css/swiper.min.css"></head>
+    <link rel="stylesheet" href="__STATIC__/js/layer.mobile-v2.0/need/layer.css">
+</head>
+<style>.swiper-slide li.chance{ color: #f19149; }
+body {
+    font-size:12px;
+    font-size:1.2rem;
+    font-family:"微软雅黑","宋体";
+    background:#fff;
+    color:#717070;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+.fl-left {
+    float:left!important;
+}
+.fl-right {
+    float:right!important;
+}
+.pos_re {
+    position:relative;
+}
+.ab_left {
+    position:absolute;
+    left:0;
+    top:0;
+}
+.ab_right {
+    position:absolute;
+    right:0px;
+    top:0;
+}
+.ab_middle {
+    display:block;
+    padding-left:0;
+    padding-right:0;
+}
+.list {
+    overflow:hidden;
+}
+
+.list li {
+    float:left;
+}
+.clearfix:after {
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    content:" ";
+    clear:both;
+    height:0;
+}
+
+.blueword {
+    color:#1d61d8;
+}
+.bluebg {
+    color:#fff;
+    background-color:#1d61d8;
+    text-align:center;
+    border-radius:3px;
+    font-size:16px;
+    line-height:42px;
+    width:100%;
+}
+.mind .swiper-pagination {
+    z-index:5;
+  /*  display:none; */
+    margin-bottom:60px;
+}
+.mindfot {
+    background-color:#e5e4e4;
+    padding:5px 10px;
+    color:#3775e2;
+    font-size:16px;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    box-sizing:border-box;
+    z-index:5
+}
+
+.mindfot img {
+    width:30px;
+    height:30px;
+    margin-right:5px;
+}
+.mind .mindtop {
+    height:40px;
+    line-height:40px;
+    position:relative;
+    z-index:2
+}
+.mind .mindtop h4 {
+    color:#3775e2;
+    font-size:16px;
+    text-align:center;
+}
+#content_div .mindtop {
+    height:40px;
+    line-height:40px;
+    position:relative;
+    z-index:2
+}
+#content_div .mindtop h4 {
+    color:#3775e2;
+    font-size:16px;
+    text-align:center;
+}
+#content_div .mindtop .swiper-button-next,.mind .mindtop .swiper-button-prev {
+    background-size:13.5px 22px;
+}
+.mind .swiper-pagination-bullet {
+    width:0.4rem;
+    height:0.4rem;
+    text-align:center;
+    line-height:0.42rem;
+    font-size:0.2rem;
+    color:#000;
+    opacity:1;
+    background:rgba(0,0,0,0.2);
+}
+
+.mind .swiper-pagination-bullet-active {
+    color:#fff;
+    background:#007aff;
+}
+.mind .curr{
+    color: #f19149;
+}
+.mind .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin:3px;
+}
+.maskwhite {
+    width:100%;
+    height:100%;
+    background-color:#fff;
+    position:absolute;
+    left:0;
+    top:0;
+    opacity:0;
+    z-index:3;
+    display:none;
+}
+
+.button-sub-score {
+    z-index: 6;
+    width: 86%;
+    margin: auto;
+    background-color: green;
+    border-radius: 50px;
+    height: 46px;
+    line-height: 46px;
+    font-size: 22px;
+    color: #fff;
+    text-align: center;
+    margin-top: 60px;
+    opacity: 0.5;
+}
+</style>
+
+<body>
+<!--页面加载 结束-->
+<header id="header">
+    <div class="header_con">
+        <input type="hidden" id="member_id" value="{$member_id|default=0}">
+        <input type="hidden" id="has_checked" value="{$score_sum|default=0}">
+        <a onclick="window.history.back()" class="back">
+            <span></span>
+        </a>
+        <div class="top_tit">{$member.truename|default=$member.nickname}【{$last_month|default=''}】得分：<b id="score_sum">{$score_sum|default=0}</b></div>
+        <div class="right_div">
+            <a style="line-height: 0.66rem;" href="{:url('index/Assessment/index')}">
+               首页 </a>
+            <!--<div class="news"></div>--></div>
+    </div>
+</header>
+<div class="mind">
+    <div id="content_div" class="swiper-container ">
+        <div class="mindtop">
+            <span class="swiper-button-prev swiper-button-blue"></span>
+            <h4> <span id="curnum">1</span>/<span id="totnum"></span></h4>
+            <span class="swiper-button-next swiper-button-blue"></span>
+        </div>
+        <div class="swiper-wrapper">
+            <!-- {volist name="list" id="vo"} -->
+            <div class="answer_box swiper-slide">
+                <ul>
+                    <li data-id="{$vo.id}" data-score="0" data-subject-title-id="0" class="ans_title">{$key+1}、{$vo.title|default=''}</li>
+                </ul>
+                {volist name="vo['subject_title']" id="sub" key="k"}
+
+                    <ul class="ans_wt">
+                        <li  class="sel_abc">
+                            <img src="__STATIC__/img/{:IntToChr($k-1)}.png" /></li>
+                        <li  data-score="{$sub.score}" class='ans_word {eq name="sub.id" value="$vo['check_subject_title_id']"}curr{/eq}' data-id="{$sub.id}">{$sub.title}（{$sub.score}分）</li>
+                    </ul>
+                {/volist}
+
+
+            </div>
+            <!-- {/volist} -->
+
+        </div>
+        <div class="swiper-pagination"></div>
+
+        <div class="maskwhite"></div>
+        <!-- {if $score_sum == 0 } -->
+        <div class="button-sub-score">提交</div>
+        <!-- {/if} -->
+
+</div>
+<!--底部结束-->
+
+<script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/common.js"></script>
+<script src="__STATIC__/js/swiper.min.js"></script>
+<script src="__STATIC__/js/layer.mobile-v2.0/layer.js"></script>
+<script type="text/javascript">//题目轮播
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    prevButton: '.swiper-button-prev',
+    nextButton: '.swiper-button-next',
+    paginationClickable: true,
+    paginationBulletRender: function(index, className) {
+        $("#totnum").text(index + 1); //总页码
+        return '<span class="' + className + '">' + (index + 1) + '</span>';
+    },
+
+    onSlideChangeEnd: function(swiper) {
+        $("#curnum").text(swiper.activeIndex + 1); //当前页
+    }
+
+});
+
+//点击底部出现题目数
+$("#showall").click(function() {
+    // $(".maskwhite").toggle();
+    $(".swiper-pagination").toggle();
+});
+
+//选择答案
+$(".swiper-slide .ans_wt").click(function() {
+
+    //如果考核过
+    if ($("#has_checked").val() > 0) {
+        return false;
+    }
+
+    $(this).parent("div").find(".ans_word").removeClass("chance");
+    $(this).find(".ans_word").addClass("chance");
+    var indexnum = $(this).parent("div").index();
+    $(".swiper-pagination span").eq(indexnum).addClass("curr");
+
+    var score_sum = 0;
+    $(".swiper-slide .chance").each(function () {
+        var score = Number($(this).data('score'));
+        score_sum += score;
+    })
+    $("#score_sum").html(score_sum);
+
+    //如果选完了就可以提交
+    var allnum = $("#totnum").text();
+    var lengths = $(".swiper-pagination span.curr").length;
+    if (lengths == allnum) {
+        $(".button-sub-score").css("opacity", 1);
+    }
+
+    //记下选项和分数
+    var title =  $(this).parent("div").find(".ans_title");
+        title.attr("data-score", $(this).find(".ans_word").data('score'));
+        title.attr("data-subject-title-id", $(this).find(".ans_word").data('id'));
+
+});
+
+//提交
+$(".button-sub-score").click(function() {
+
+    var allnum = $("#totnum").text();
+    $("#subnum").text(allnum);
+    var lengths = $(".swiper-pagination span.curr").length;
+
+    if (lengths == allnum) {
+        //询问框
+        layer.open({
+            content: '您确定要提交本次考核吗？'
+            ,btn: ['确定', '不要']
+            ,yes: function(index){
+                var subject_ids      = []; //考核指标
+                var subject_title_ids = []; //指标结果
+                var scores           = []; //指标结果得分
+                $(".swiper-slide .ans_title").each(function () {
+                    subject_ids.push($(this).data('id'));
+                    subject_title_ids.push($(this).data('subject-title-id'));
+                    scores.push($(this).data('score'));
+                });
+                var url        = "{:url('index/Assessment/saveSubjectLog')}";
+                var member_id = $("#member_id").val();
+                if (member_id == 0) {
+                    layer.open({
+                        content: '信息不完整！'
+                        ,time: 2 //2秒后自动关闭
+                    });
+                    return false;
+                }
+                $.post(url, {
+                    'member_id': member_id,
+                    'subject_ids': subject_ids,
+                    'subject_title_ids': subject_title_ids,
+                    'scores': scores
+                }, function(res) {
+                    //信息框
+                    layer.open({
+                        content: res.msg
+                        ,btn: '我知道了'
+                    });
+                    layer.close(index);
+                    if (res.code == 0) {
+                        $(".button-sub-score").hide();
+                    }
+                }, 'json');
+
+
+            }
+        });
+    } else {
+        //提示
+        layer.open({
+            content: '还没选完！'
+            ,skin: 'msg'
+            ,time: 2 //2秒后自动关闭
+        });
+    }
+
+});</script>
+</body>
+
+</html>

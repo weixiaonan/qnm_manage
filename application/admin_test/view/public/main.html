@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>员工管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="Author" content="larry" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/larryms/larry/css/larry.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/larryms/css/base.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__ADMIN__/larryms/css/template/admin.css" media="all">
+</head>
+
+<body class="larry-bg-white">
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+{block name="body"}{/block}
+
+
+{block name="script"}{/block}
+<!-- 加载js文件-->
+<script type="text/javascript" src="__ADMIN__/larryms/layui/layui.js"></script>
+<script type="text/javascript">
+    var table;
+    layui.config({
+        version: "2.0.8",
+        base: '__ADMIN__/larryms/',
+        mods:'template/',
+        page: 'users',
+        isFunction: true
+    }).extend({
+        larry: 'js/base'
+    }).use('larry');
+</script>
+</body>
+
+</html>
