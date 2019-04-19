@@ -29,7 +29,7 @@
     <div class="layui-header larryms-header" id="larry_head">
         <div class="larryms-topbar-left" id="topbarL">
             <span class="mini-logo"><img src="__ADMIN__/ybms/images/logo_mini.png" alt=""></span>
-            <a class="layui-logo larryms-logo">LarryMS</a>
+            <a class="layui-logo larryms-logo">{:sysconf('site_name')}</a>
             <span class="larryms-switch larryms-icon-fold" id="menufold"><i class="larry-icon larry-fold7"></i></span>
             <div class="larryms-mobile-menu" id="larrymsMobileMenu"><i class="larry-icon larry-caidan1"></i></div>
             <div class="larryms-mobile-tab layui-hide-sm layui-hide-md layui-hide-lg layui-show-xs layui-form pt-page-moveFromLeft" id="larrymsMobileTab">
@@ -58,8 +58,8 @@
                     <li class="layui-nav-item layout-switch">
                         <a href="javascript:;" class="pi20"><i class="larry-icon larry-yingyongzhongxin"></i><span class="layui-badge-dot" style="margin: -3px 0px 0px -32px;"></span><cite>布局切换</cite></a>
                         <dl class="layui-nav-child">
-                            <dd class="layui-this"><a data-href="__ADMIN__/html/larryMS210.html" data-text="选项卡式布局">选项卡式布局</a></dd>
-                            <dd><a data-href="__ADMIN__/html2/index.html" data-text="无选项卡布局">无选项卡布局</a></dd>
+                            <dd class="layui-this"><a data-href="{:url('admin/index/index')}" data-text="选项卡式布局">选项卡式布局</a></dd>
+                            <dd><a data-href="{:url('admin/index/no_tab_index')}" data-text="无选项卡布局">无选项卡布局</a></dd>
                             <dd><a data-href="" data-text="">顶部选项卡布局</a></dd>
                             <dd><a data-href="" data-text="">左双菜单排列</a></dd>
                             <dd><a data-href="" data-text="">阿里系风格布局</a></dd>
@@ -137,7 +137,7 @@
                         <a id="larryTheme"><i class="larry-icon larry-zhutishezhi-"></i><cite>主题设置</cite></a>
                     </li>
                     <li class="layui-nav-item exit" lay-unselect>
-                        <a id="logout" data-url='login.html'><i class="larry-icon larry-exit"></i><cite>退出</cite></a>
+                        <a id="logout" data-url='admin/login.html'><i class="larry-icon larry-exit"></i><cite>退出</cite></a>
                     </li>
                 </ul>
                 <div class="mobile-select"  id="rightMenuButton">
@@ -162,7 +162,7 @@
                 </div>
                 <!-- 系统菜单 -->
                 <div class="sys-menu-box" >
-                    <ul class="larryms-nav larryms-nav-tree" id="larryms_left_menu" lay-filter="LarrySide" data-group='0'>
+                    <ul class="larryms-nav larryms-nav-tree" lay-shrink="" id="larryms_left_menu" lay-filter="LarrySide" data-group='0'>
                         <!-- 此次动态生成 -->
 
                     </ul>
@@ -235,12 +235,12 @@
 <!-- 加载js文件-->
 <script type="text/javascript" src="__ADMIN__/ybms/layui/layui.js"></script>
 <script type="text/javascript">
-    layui.cache.homeUrl = '{:url('admin/index/user')}';
+    layui.cache.homeUrl  = '{:url('admin/index/user')}';
     layui.cache.menusUrl = "{:url('admin/index/_getMenus')}";//'__ADMIN__/ybms/data/menu.json';//这里设置 菜单数据项接口地址 或data参数
     layui.cache.page = 'switchs,index';
     //说明：并非一个页面只能加载一个模块 可以这样定义：'index,common';也并非每个页面都要定义一个模块，事实上模块根据功能需要可以公用
     //layui.cache.rightMenu = 'custom'; //默认开启页面右键菜单，设置为 custom 时需要自定义右键菜单，设置为false 关闭右键菜单
-
+    layui.cache.sysName = "<b>【{:sysconf('site_name')}】</b>";//提示框title
     layui.config({
         version:"2.0.8",
         base:'__ADMIN__/ybms/',  //实际使用时，建议改成绝对路径

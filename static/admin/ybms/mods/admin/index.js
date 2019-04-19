@@ -15,7 +15,7 @@ layui.define(["jquery", "configure", "larryTab", "form", "admin", "element"], fu
 	larryTab = layui.larryTab({
 		tab_elem: "#larry_tab",
 		tabMax: 130,
-		spreadOne: true
+        spreadOne: false //默认展开所有，为true时只打开一个
 	});
 	var y = function() {
 			if (layui.data("larryms").topMenuSet === undefined) {
@@ -239,7 +239,7 @@ layui.define(["jquery", "configure", "larryTab", "form", "admin", "element"], fu
 	}
 	r(top.document.body).one("click", function() {
 		if (!r(this).hasClass("notice-trigger")) {
-			//S();屏蔽通知
+			//S();yb屏蔽通知
 			r(this).addClass("notice-trigger")
 		}
 	});

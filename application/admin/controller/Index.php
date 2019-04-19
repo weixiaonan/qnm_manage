@@ -42,8 +42,19 @@ class Index extends Controller
         if (empty($this->menus) && !session('user.id')) {
             $this->redirect('@admin/login');
         } else {
-
             $this->fetch();
+        }
+    }
+
+    public function no_tab_index()
+    {
+        $this->title = '系统管理后台';
+        $this->menus = \app\admin\service\Auth::getAuthMenu();
+
+        if (empty($this->menus) && !session('user.id')) {
+            $this->redirect('@admin/login');
+        } else {
+            $this->fetch('no_tab_index');//单页无选项卡
         }
     }
 

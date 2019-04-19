@@ -131,7 +131,8 @@ $(function () {
         this.targetClass = '.layui-layout-admin>.layui-body';
         // 刷新当前页面
         this.reload = function () {
-            window.onhashchange.call(this);
+           // window.onhashchange.call(this);
+            window.location.reload();
         };
         // 内容区域动态加载后初始化
         this.reInit = function ($dom) {
@@ -606,7 +607,6 @@ $(function () {
         var url = $(this).attr('action').replace(/&?page=\d+/g, ''), split = url.indexOf('?') === -1 ? '?' : '&';
         if ((this.method || 'get').toLowerCase() === 'get') {
            // return window.location.href = '#' + $.menu.parseUri(url + split + $(this).serialize());
-            alert($.menu.parseUri(url + split + $(this).serialize()))
             return window.location.href = $.menu.parseUri(url + split + $(this).serialize());
         }
         $.form.load(url, this, 'post');

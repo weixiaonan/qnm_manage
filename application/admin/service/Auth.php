@@ -169,7 +169,7 @@ class Auth
             } else {
                 $row['font'] = '';
             }
-            $row['spread'] = true;
+           // $row['spread'] = true;
 
         }
         return self::buildMenuData(Data::arr2tree($list, 'id', 'pid', 'children'), self::get(), self::isLogin());
@@ -184,8 +184,20 @@ class Auth
      */
     private static function buildMenuData($menus, $nodes, $isLogin)
     {
+
         foreach ($menus as $key => &$menu) {
-            if (!empty($menu['children'])) $menu['children'] = self::buildMenuData($menu['children'], $nodes, $isLogin);
+
+                if ($key == 0 &&  $menu['url'] == '#') {
+                    $menu['spread']   = true;
+                } else {
+                    $menu['spread']   = false;
+                }
+
+
+            if (!empty($menu['children'])) {
+               // $menu['children']['spread'] = $menu['spread'];
+                $menu['children'] = self::buildMenuData($menu['children'], $nodes, $isLogin);
+            }
             if (!empty($menu['children'])) $menu['url'] = '#';
             elseif (preg_match('/^https?\:/i', $menu['url'])) continue;
             elseif ($menu['url'] !== '#') {
